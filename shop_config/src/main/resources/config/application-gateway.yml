@@ -1,0 +1,44 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: gateway-server
+  cloud:
+    gateway:
+      #配置路由规则
+      routes:
+        - id: back
+          uri: lb://BACK-SERVER
+          predicates:
+            - Path=/back/**
+          filters:
+            - StripPrefix=1
+        #秒杀服务的路由规则
+        - id: kill2
+          uri: lb://KILL-SERVER
+          predicates:
+            - Path=/kill/quQiangGo
+          filters:
+            - myCode
+        - id: kill
+          uri: lb://KILL-SERVER
+          predicates:
+            - Path=/kill/**,/html/**
+        - id: auth
+          uri: lb://AUTH-SERVER
+          predicates:
+            - Path=/auth/**
+        #静态资源服务的路由规则
+        - id: resources
+          uri: lb://RESOURCES-SERVER
+          predicates:
+            - Path=/css/**,/images/**,/js/**,/widget/**
+            #首页服务的路由规则
+        - id: front
+          uri: lb://FRONT-SERVER
+          predicates:
+            - Path=/**
+
+
+
+

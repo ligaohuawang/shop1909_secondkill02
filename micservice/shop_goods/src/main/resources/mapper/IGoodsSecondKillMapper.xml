@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qf.dao.IGoodsSecondKillMapper">
+    <!--增删改方法自带锁-->
+    <update id="updateKillSave">
+        update goods_secondkill set kill_save = kill_save - #{gnumber} where gid = #{gid}
+    </update>
+</mapper>
